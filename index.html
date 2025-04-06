@@ -29,6 +29,7 @@
             color: var(--text-color);
             background-color: var(--bg-color);
             overflow-x: hidden;
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
 
         .container {
@@ -46,6 +47,7 @@
             overflow: hidden;
             border-bottom-left-radius: 30% 50px;
             border-bottom-right-radius: 30% 50px;
+            margin-bottom: 1rem; /* Add space below header */
         }
 
         header::before {
@@ -129,11 +131,16 @@
             transform: scaleX(1);
         }
 
+        main {
+            padding-top: 80px; /* Space for sticky nav */
+        }
+
         section {
             padding: 4rem 0;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
+            min-height: 50vh; /* Ensure sections are scrollable */
         }
 
         section.visible {
@@ -392,6 +399,11 @@
             .projects {
                 grid-template-columns: 1fr;
             }
+
+            #projects {
+                display: block; /* Force display on mobile */
+                min-height: 100vh; /* Ensure it’s tall enough to scroll into */
+            }
         }
     </style>
 </head>
@@ -441,7 +453,7 @@
             <div class="education-card">
                 <h3>Kasetsart University</h3>
                 <p>B.Sc. in Computer Science (Current)</p>
-                <span class="gpax">GPAX: 2.66</span>
+                <span class="gpax">GPAX: 2.70</span>
             </div>
         </section>
 
@@ -537,10 +549,8 @@
         const isInViewport = (element) => {
             const rect = element.getBoundingClientRect();
             return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom > 0
             );
         };
 
